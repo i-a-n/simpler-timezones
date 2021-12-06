@@ -2,4 +2,4 @@
 *.config.ts
 *.test.js
 *.test.ts
-dist
+distributions

@@ -1,11 +1,11 @@
 {
-  "name": "example-typescript-package",
-  "version": "0.2.2",
-  "description": "",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "umd:main": "dist/umd/index.js",
-  "types": "dist/types/index.d.js",
+  "name": "simpler-timezones",
+  "version": "0.0.1",
+  "description": "a simpler list of timezones, and tools for reasonably guessing the nearest major timezone to a user",
+  "main": "distributions/cjs/index.js",
+  "module": "distributions/esm/index.js",
+  "umd:main": "distributions/umd/index.js",
+  "types": "distributions/types/index.d.js",
   "scripts": {
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
@@ -25,30 +25,22 @@
     "access": "public"
   },
   "files": [
-    "dist"
+    "distributions"
   ],
   "keywords": [
-    "example",
-    "typescript",
-    "npm",
-    "package",
-    "sample",
-    "boilerplate",
-    "starter",
-    "demo",
-    "cjs",
-    "esm",
-    "umd"
+    "major",
+    "simple",
+    "timezones"
   ],
-  "author": "Tom Chen <tomchen.org@gmail.com>",
+  "author": "ian m <ian@union.io>",
   "license": "MIT",
-  "homepage": "https://github.com/tomchen/example-typescript-package",
+  "homepage": "https://github.com/i-a-n/simpler-timezones",
   "repository": {
     "type": "git",
-    "url": "git@github.com:tomchen/example-typescript-package.git"
+    "url": "git@github.com:i-a-n/simpler-timezones.git"
   },
   "bugs": {
-    "url": "https://github.com/tomchen/example-typescript-package/issues"
+    "url": "https://github.com/i-a-n/simpler-timezones/issues"
   },
   "dependencies": {},
   "devDependencies": {

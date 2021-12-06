@@ -2,9 +2,9 @@ const path = require('path')
 
 module.exports = {
   mode: 'production',
-  entry: './src/index.ts',
+  entry: './source/index.ts',
   output: {
-    path: path.resolve(__dirname, '../dist/umd'),
+    path: path.resolve(__dirname, '../distributions/umd'),
     filename: 'index.js',
     library: 'exampleTypescriptPackage',
     libraryTarget: 'umd',

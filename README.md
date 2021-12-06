@@ -1,177 +1,45 @@
-# Example TypeScript Package ready to be published on npm for 2021
+# SIMPLER TIMEZONES
 
-This is an example TypeScript Package ready to be published on npm. It has been set up with automated tests and package publishing workflow using GitHub Actions CI/CD. It is made primarily for GitHub + VS Code (Windows / Mac / Linux) users who are about to write and publish their first TypeScript npm package. This package could serve as a starter / boilerplate / demo for them.
+a simpler list of timezones, and tools for reasonably guessing the nearest timezone to a user
 
-[![npm package](https://img.shields.io/badge/npm%20i-example--typescript--package-brightgreen)](https://www.npmjs.com/package/example-typescript-package) [![version number](https://img.shields.io/npm/v/example-typescript-package?color=green&label=version)](https://github.com/tomchen/example-typescript-package/releases) [![Actions Status](https://github.com/tomchen/example-typescript-package/workflows/Test/badge.svg)](https://github.com/tomchen/example-typescript-package/actions) [![License](https://img.shields.io/github/license/tomchen/example-typescript-package)](https://github.com/tomchen/example-typescript-package/blob/main/LICENSE)
+### timezones are a mess
 
-It uses npm, TypeScript compiler, Jest, webpack, ESLint, Prettier, husky, pinst, commitlint. The production files include CommonJS, ES Modules, UMD version and TypeScript declaration files.
+the two major problems this library solves are:
 
-<p align="center">
-<a href="https://github.com/" title="Github"><img src="https://github.com/get-icon/geticon/raw/master/icons/github-icon.svg" alt="Github" width="21px" height="21px"></a> <a href="https://code.visualstudio.com/" title="Visual Studio Code"><img src="https://github.com/get-icon/geticon/raw/master/icons/visual-studio-code.svg" alt="Visual Studio Code" width="21px" height="21px"></a> <a href="https://www.microsoft.com/windows" title="Windows"><img src="https://github.com/get-icon/geticon/raw/master/icons/microsoft-windows.svg" alt="Windows" width="21px" height="21px"></a> <a href="https://www.apple.com/macos/" title="Mac OS"><img src="https://github.com/get-icon/geticon/raw/master/icons/macOS.svg" alt="Mac OS" width="21px" height="21px"></a> <a href="https://www.linuxfoundation.org/" title="Linux"><img src="https://github.com/get-icon/geticon/raw/master/icons/linux-tux.svg" alt="Linux" width="21px" height="21px"></a> <a href="https://www.npmjs.com/" title="npm"><img src="https://github.com/get-icon/geticon/raw/master/icons/npm.svg" alt="npm" width="21px" height="21px"></a> <a href="https://www.typescriptlang.org/" title="Typescript"><img src="https://github.com/get-icon/geticon/raw/master/icons/typescript-icon.svg" alt="Typescript" width="21px" height="21px"></a> <a href="https://jestjs.io/" title="Jest"><img src="https://github.com/get-icon/geticon/raw/master/icons/jest.svg" alt="Jest" width="21px" height="21px"></a> <a href="https://webpack.js.org/" title="webpack"><img src="https://github.com/get-icon/geticon/raw/master/icons/webpack.svg" alt="webpack" width="21px" height="21px"></a> <a href="https://eslint.org/" title="ESLint"><img src="https://github.com/get-icon/geticon/raw/master/icons/eslint.svg" alt="ESLint" width="21px" height="21px"></a> <a href="https://prettier.io/" title="Prettier"><img src="https://github.com/get-icon/geticon/raw/master/icons/prettier.svg" alt="Prettier" width="21px" height="21px"></a> <a href="https://yarnpkg.com/" title="yarn"><img src="https://github.com/get-icon/geticon/raw/master/icons/yarn.svg" alt="yarn" width="21px" height="21px"></a>
-</p>
+1. an official, exhaustive list of timezones is too long, and asking a user to traverse literally hundreds of timezones or locales to select their nearest timezone is a bad user experience
+2. guessing a user's timezone via their browser returns one of many hundreds of locales, and connecting a given locale to a reasonable list of timezones takes too much time & custom code
 
-## Development
+you may want to use this library if:
 
-### Use as a template
+1. you want to present users with a short, easy-to-read list of major timezones that cover a large majority of humans on earth
+2. you want to guess a user's nearest major timezone
 
-[![Use the template](https://img.shields.io/static/v1?label=&message=Click%20here%20to%20use%20this%20package%20as%20a%20template%20to%20start%20a%20new%20repo%20on%20GitHub&color=brightgreen&style=for-the-badge)](https://github.com/tomchen/example-typescript-package/generate)
+you should not use this library if:
 
-(Click the above button to use this example package as a template for your new GitHub repo, this will initialize a new repository and my commits will not be in your git history)
+1. you require every potential user on planet earth to have their precise timezone represented in your form
+2. you care whether your user observes daylight saving time
 
-(If you do not use GitHub, you can [download the archive of the example package](https://github.com/tomchen/example-typescript-package/archive/main.zip))
+notes:
 
-### Set up tools and environment
+- this library, again, is not exhaustive. it's just practical. it will save most developers lots of time and provide a better user experience for most users. if you are a developer who would not save any time using this library, please use another one. if you are a user who didn't have a better experience because of this library, I'm very sorry.
+- you may not agree with the editorial choices (which timezones to exclude, which locales to include, etc), and that's completely expected and valid. please feel free to request updates, or fork and edit to your liking.
+- the language in this library and its documentation is neither technical nor precise. for instance, the timezone in this library named "[-05:00] Eastern Standard Time (ET)" is not technically a timezone; it's an offset plus a partial description of one of the timezones within that offset. but this library doesn't care about that sort of precision; it's made for practical usage and to help developers who just need something reasonable, quickly.
 
-You need to have [Node.js](https://nodejs.org/en/download/) installed. Node includes npm as its default package manager.
+a note about daylight saving:
 
-Open the whole package folder with a good code editor, preferably [Visual Studio Code](https://code.visualstudio.com/download). Consider installing VS Code extensions [ES Lint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+- this library emphatically disregards daylight saving time. a user should pick their timezone based on their standard time, which will also be what this library's timezone guesser will return. if you're thinking to yourself "that's madness, if I'm a user in California (whose standard offset is -08:00), and we're currently observing daylight saving (meaning my offset is currently -07:00), it's totally wrong for me to pick -08:00!", then you should use another library. this library operates under the assumption typical users have no idea whether they are currently IN or OUT OF daylight saving time, and don't know their UTC offsets by heart. this library's reason for existing is this statement: users typically don't care about timezone precision and will instead have a better user experience picking a standard timezone name, with its standard offset, out of a simple, short list of timezones.
 
-In the VS Code top menu: **Terminal** -> **New Terminal**
+here are two examples illustrating why this isn't an accurate timezone library:
 
-### Install dependencies
+- let's say we might guess, based on a user's built-in browser timezone, that they are located in `America/Phoenix`. technically, there is a timezone specifically for the state of Arizona, in which Phoenix is located, because Arizona is on "Mountain Time" but does not observe daylight saving. however, since we're presenting a reasonable list of timezones, we don't differentiate between "Mountain Time" and "Mountain Time (Arizona)". based on their "standard time" offset, their nearest guess will be Mountain Time, and this library will not assist with selecting Mountain Time (Arizona), nor will it assist with telling you whether the user in Phoenix is currently at offset -6:00 or -7:00. you'll have to use other libraries and methods to do that.
+- let's say you're a person living in Newfoundland, whose offset is -02:30 part of the year and -01:30 for the other. you won't find your timezone on this list unless you've passed the `showMoreTimezones: true` option to it, since some low-population and many unique-offset timezones are not shown by default.
 
-Install dependencies with npm:
+### methodology
 
-```bash
-npm i
-```
+choosing a single name for a time offset that spans many countries is inherently an editorial decision with political undertones. choosing which timezones to leave out of the default list is as well. decisions are guided as follows:
 
-### Write your code
+- for timezones with multiple areas of large population—for instance, +03:00 including both Moscow and Baghdad—the area with the higher number of internet users is chosen. see: https://en.wikipedia.org/wiki/List_of_countries_by_number_of_Internet_users
+- timezones with less than 500,000 total inhabitants are not shown by default, but will appear if the `showMore` option is set to `true`.
+- timezones with no recognized permanent population are not included
 
-Make necessary changes in **package.json** (name, version, description, keywords, author, homepage and other URLs).
-
-Write your code in **src** folder, and unit test in **test** folder, replacing the original files there.
-
-The VS Code shortcuts for formatting of a code file are: <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>F</kbd> (Windows); <kbd>Shift</kbd> + <kbd>Option (Alt)</kbd> + <kbd>F</kbd> (MacOS); <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> (Linux).
-
-Change code linting and formatting settings in **.prettierrc.js** if you want.
-
-### Test
-
-Test your code with Jest framework:
-
-```bash
-npm run test
-```
-
-**Note:** Example TypeScript Package uses [husky](https://typicode.github.io/husky/), [pinst](https://github.com/typicode/pinst) and [commitlint](https://commitlint.js.org/) to automatically execute test and [lint commit message](https://www.conventionalcommits.org/) before every commit.
-
-### Build
-
-Build production (distribution) files in your **dist** folder:
-
-```bash
-npm run build
-```
-
-It generates CommonJS (in **dist/cjs** folder), ES Modules (in **dist/esm** folder), bundled and minified UMD (in **dist/umd** folder), as well as TypeScript declaration files (in **dist/types** folder).
-
-### Try it before publishing
-
-Run:
-
-```bash
-npm link
-```
-
-[npm link](https://docs.npmjs.com/cli/v6/commands/npm-link) will create a symlink in the global folder, which may be **{prefix}/lib/node_modules/example-typescript-package** or **C:\Users\<username>\AppData\Roaming\npm\node_modules\example-typescript-package**.
-
-Create an empty folder elsewhere, you don't even need to `npm init` (to generate **package.json**). Open the folder with VS Code, open a terminal and just run:
-
-```bash
-npm link example-typescript-package
-```
-
-This will create a symbolic link from globally-installed example-typescript-package to **node_modules/** of the current folder.
-
-You can then create a, for example, **testnum.ts** file with the content:
-
-```ts
-import { Num } from 'example-typescript-package'
-console.log(new Num(5).add(new Num(6)).val() === 11)
-```
-
-If you don't see any linting errors in VS Code, if you put your mouse cursor over `Num` and see its type, then it's all good.
-
-Whenever you want to uninstall the globally-installed example-typescript-package and remove the symlink in the global folder, run:
-
-```bash
-npm uninstall example-typescript-package -g
-```
-
-### Prepare to publish
-
-Create an [npm](https://www.npmjs.com/) account.
-
-<details><summary><strong>Click to read this section if you do manual publishing</strong></summary>
-
-#### Manual publishing to npm
-
-Log in:
-
-```bash
-npm adduser
-```
-
-And publish:
-
-```bash
-npm publish
-```
-
-</details>
-
-This package is configured to use GitHub Actions CI/CD to automate both the **npm** and **GitHub Packages** publishing process. The following are what you have to do.
-
-#### CI publishing to npm
-
-Follow [npm's official instruction](https://docs.npmjs.com/creating-and-viewing-access-tokens) to create an npm token. Choose "Publish" from the website, or use `npm token create` without argument with the CLI.
-
-If you use 2FA, then make sure it's enabled for **authorization** only instead of **authorization and publishing** (**Edit Profile** -> **Modify 2FA**).
-
-On the page of your newly created or existing GitHub repo, click **Settings** -> **Secrets** -> **New repository secret**, the **Name** should be `NPM_TOKEN` and the **Value** should be your npm token.
-
-#### CI publishing to GitHub Packages
-
-The default configuration of this example package **assumes you publish package with an unscoped name to npm**. GitHub Packages must be named with a scope name such as "@tomchen/example-typescript-package".
-
-Change `scope: '@tomchen'` to your own scope in **.github/workflows/publish.yml**, also change `addscope` in **package.json**.
-
-If you publish package with a scoped name to npm, change the name to something like "@tomchen/example-typescript-package" in **package.json**, and remove the `- run: npm run addscope` line in **.github/workflows/publish.yml**
-
-If you publish your package to npm only, and don't want to publish to GitHub Packages, then delete the lines from `- name: Setup .npmrc file to publish to GitHub Packages` to the end of the file in **.github/workflows/publish.yml**.
-
-(You might have noticed `secret.GITHUB_TOKEN` in **.github/workflows/publish.yml**. You don't need to set up a secret named `GITHUB_TOKEN` actually, it is [automatically created](https://docs.github.com/en/free-pro-team@latest/actions/reference/authentication-in-a-workflow#about-the-github_token-secret))
-
-### Publish
-
-Now everything is set. The example package has automated tests and upload (publishing) already set up with GitHub Actions:
-
-- Every time you `git push` or a pull request is submitted on your `master` or `main` branch, the package is automatically tested against the desired OS and Node.js versions with GitHub Actions.
-- Every time an [**annotated**](https://git-scm.com/book/en/v2/Git-Basics-Tagging#_annotated_tags) (not [lightweight](https://git-scm.com/book/en/v2/Git-Basics-Tagging#_lightweight_tags)) "v*" tag is pushed onto GitHub, a GitHub release is automatically generated from this version, it also automatically publishes to the npm registry and/or GitHub Packages registry to update the package there.
-  - [`npm version`](https://docs.npmjs.com/cli/version/) / [`yarn version`](https://yarnpkg.com/cli/version) is useful to create tags.
-  - (npm or yarn v1, not yarn v2) You could also add `"postversion": "git push --follow-tags"` to **package.json** file to push it automatically after `npm` or `yarn` `version`.
-  - (yarn v1, not v2) because `yarn version` doesn't check whether there are uncommitted changes, you can add `"preversion": "git diff-index --quiet HEAD --"` to **package.json**
-    - Note: `preversion`, `postversion` doesn't work in yarn v2
-
-For npm registry: you can unpublish a version or the whole package but can never re-publish the same version under the same name.
-
-If you want to modify the description / README on the npm package page, you have to publish a new version. You can modify the description on GitHub Packages without publishing.
-
-## Notes
-
-- It uses npm but you can easily switch to yarn, of course (remember to change all "npm" in `scripts` in the file **package.json**)
-  - Whether you use npm as your package manager ≠ Whether you can publish to the npm registry
-- Works fine in VS Code. In my configuration **.eslintrc** and **.prettierrc** cooperate perfectly
-- See `scripts` in **package.json** for other predefined script commands
-- [pinst](https://github.com/typicode/pinst) is used to solve [a problem of husky](https://typicode.github.io/husky/#/?id=yarn-2)
-- The installation of the package with npm, yarn v1 and yarn v2+ is ensured in [this test](https://github.com/tomchen/example-typescript-package-test)
-
-## References
-
-- [Creating and publishing unscoped public packages - npm docs](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages)
-- [npm-publish - npm docs](https://docs.npmjs.com/cli/v6/commands/npm-publish)
-- [Publishing - TypeScript docs](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)
-- [Publishing Node.js packages - GitHub Docs](https://docs.github.com/en/free-pro-team@latest/actions/guides/publishing-nodejs-packages)
-
-Btw, if you want to publish Python package, go to [Example PyPI (Python Package Index) Package & Tutorial / Instruction / Workflow for 2021](https://github.com/tomchen/example_pypi_package).
+for more information on source data, please see `./source/data-for-humans`.
