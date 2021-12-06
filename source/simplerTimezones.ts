@@ -8,10 +8,13 @@ interface Options {
 class SimplerTimezones {
   showMoreTimezones?: boolean;
 
-  constructor(options: Options) {
-    const { showMoreTimezones } = options;
-    this.showMoreTimezones = showMoreTimezones;
+  constructor(options?: Options) {
+    this.showMoreTimezones = options?.showMoreTimezones;
   }
+
+  getTimezone = (offset: number) => {
+    return timezones.find((timezone) => timezone.offset_standard === offset);
+  };
 
   getTimezones = () => {
     if (this.showMoreTimezones) {

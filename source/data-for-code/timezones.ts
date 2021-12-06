@@ -1,4 +1,4 @@
-interface Timezone {
+export interface Timezone {
   name: string;
   token: string;
   show_by_default: boolean;
@@ -11,7 +11,7 @@ const timezones: Timezone[] = [
   {
     name: '[-11:00] Samoa Standard Time (SMST)',
     token: 'utc-11',
-    show_by_default: true,
+    show_by_default: false,
     offset_standard: -1100,
     primary_locales: ['Pacific/Samoa'],
     locales: [

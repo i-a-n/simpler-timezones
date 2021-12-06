@@ -5669,6 +5669,27 @@ function getTZs(offset) {
 
 now `getTZs(+10:00)` will return all timezones with `UTC+10:00` as their standard-time offset.
 
+you can also generate the table found in the README at the root of this repo by running something like this:
+
+```js
+var output = '';
+for (i = 0; i < tz.length; i++) {
+  output += '|';
+  output += tz[i].name.substr(0, 8);
+  output += '|';
+  output += tz[i].name.substr(9);
+  output += '|';
+  output += tz[i].primary_locales[0];
+  if (tz[i].primary_locales.length > 1) {
+    output += ',' + tz[i].primary_locales[1];
+  }
+  output += '|';
+  output += tz[i].show_by_default;
+  output += '|';
+  output += '\r\n';
+}
+```
+
 ### futher resources
 
 nearly every offset in this library was checked against these invaluable public domain sources:
