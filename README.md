@@ -1,9 +1,16 @@
 <p align="center">
   <img src="./source/data-for-humans/simpler.jpg" width="450">
   <br>
+  <br>
   SIMPLER TIMEZONES
   <br>
   a simpler list of timezones, and tools for reasonably guessing the nearest timezone to a user
+  <br>
+  <br>
+  <a href="https://codesandbox.io/s/upbeat-tdd-ferbl?fontsize=14&hidenavigation=1&theme=dark">
+    <img src="https://codesandbox.io/static/img/play-codesandbox.svg">
+  </a>
+
 </p>
 
 ---
