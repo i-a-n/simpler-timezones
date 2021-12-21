@@ -2,9 +2,11 @@
   <img src="./source/data-for-humans/simpler.jpg" width="450">
   <br>
   <br>
-  SIMPLER TIMEZONES
+  <b>SIMPLER TIMEZONES</b>
   <br>
-  a simpler list of timezones, and tools for reasonably guessing the nearest timezone to a user
+  a zero-dependency package that returns all major timezones,
+  <br>
+  with tools for guessing the nearest timezone to a user
   <br>
   <br>
   <a href="https://codesandbox.io/s/upbeat-tdd-ferbl?fontsize=14&hidenavigation=1&theme=dark">
@@ -101,6 +103,8 @@ simplerTimezones.getTimezone(-800);
 ```
 
 #### guess a user's timezone
+
+_note: works on all major browsers (chrome/safari/firefox/edge), doesn't work on internet explorer_
 
 ```js
 simplerTimezones.guessTimezone();
