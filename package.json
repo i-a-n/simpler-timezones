@@ -1,6 +1,6 @@
 {
   "name": "simpler-timezones",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "a simpler list of timezones, and tools for reasonably guessing the nearest major timezone to a user",
   "main": "distributions/cjs/index.js",
   "module": "distributions/esm/index.js",
