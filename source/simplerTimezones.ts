@@ -1,34 +1,39 @@
 import timezones from './data-for-code/timezones';
-import moment from 'moment-timezone';
 
 interface Options {
   showMoreTimezones?: boolean;
 }
 
 class SimplerTimezones {
-  showMoreTimezones?: boolean;
+  simplerTimezones: typeof timezones;
 
   constructor(options?: Options) {
-    this.showMoreTimezones = options?.showMoreTimezones;
+    this.simplerTimezones = options?.showMoreTimezones
+      ? timezones
+      : timezones.filter((timezone) => timezone.show_by_default);
   }
 
   getTimezone = (offset: number) => {
-    return timezones.find((timezone) => timezone.offset_standard === offset);
+    return this.simplerTimezones.find(
+      (timezone) => timezone.offset_standard === offset
+    );
   };
 
   getTimezones = () => {
-    if (this.showMoreTimezones) {
-      return timezones;
-    }
-    return timezones.filter((timezone) => timezone.show_by_default);
+    return this.simplerTimezones;
   };
 
   guessLocale = () => {
-    return moment.tz.guess();
+    try {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    } catch (e) {
+      console.log('Browser does not support timezone detection');
+      return '';
+    }
   };
 
   guessTimezone = () => {
-    return timezones.find((timezone) =>
+    return this.simplerTimezones.find((timezone) =>
       timezone['locales'].includes(this.guessLocale())
     );
   };
