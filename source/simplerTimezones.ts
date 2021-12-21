@@ -1,5 +1,4 @@
 import timezones from './data-for-code/timezones';
-import moment from 'moment-timezone';
 
 interface Options {
   showMoreTimezones?: boolean;
@@ -24,7 +23,12 @@ class SimplerTimezones {
   };
 
   guessLocale = () => {
-    return moment.tz.guess();
+    try {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    } catch (e) {
+      console.log('Browser does not support timezone detection');
+      return '';
+    }
   };
 
   guessTimezone = () => {
