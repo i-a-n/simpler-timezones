@@ -4,7 +4,7 @@
   <br>
   <b>SIMPLER TIMEZONES</b>
   <br>
-  a zero-dependency package that returns all major timezones,
+  a zero-dependency <a href="https://www.npmjs.com/package/simpler-timezones">package</a> that returns all major timezones,
   <br>
   with tools for guessing the nearest timezone to a user
   <br>
