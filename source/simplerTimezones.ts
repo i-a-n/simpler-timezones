@@ -5,21 +5,22 @@ interface Options {
 }
 
 class SimplerTimezones {
-  showMoreTimezones?: boolean;
+  simplerTimezones: typeof timezones;
 
   constructor(options?: Options) {
-    this.showMoreTimezones = options?.showMoreTimezones;
+    this.simplerTimezones = options?.showMoreTimezones
+      ? timezones
+      : timezones.filter((timezone) => timezone.show_by_default);
   }
 
   getTimezone = (offset: number) => {
-    return timezones.find((timezone) => timezone.offset_standard === offset);
+    return this.simplerTimezones.find(
+      (timezone) => timezone.offset_standard === offset
+    );
   };
 
   getTimezones = () => {
-    if (this.showMoreTimezones) {
-      return timezones;
-    }
-    return timezones.filter((timezone) => timezone.show_by_default);
+    return this.simplerTimezones;
   };
 
   guessLocale = () => {
@@ -32,7 +33,7 @@ class SimplerTimezones {
   };
 
   guessTimezone = () => {
-    return timezones.find((timezone) =>
+    return this.simplerTimezones.find((timezone) =>
       timezone['locales'].includes(this.guessLocale())
     );
   };
